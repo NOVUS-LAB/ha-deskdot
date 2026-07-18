@@ -1,0 +1,395 @@
+notify:
+  name: Send notification
+  description: Show a temporary notification on the DeskDot display.
+  fields:
+    device:
+      name: DeskDot device
+      required: true
+      description: The DeskDot to notify.
+      selector:
+        device:
+          manufacturer: DeskDot
+          model: DeskDot Display
+    text:
+      name: Message text
+      required: true
+      description: Text to scroll or show (max 160 characters).
+      example: "Door unlocked"
+      selector:
+        text: {}
+    title:
+      name: Title
+      description: Optional title stored with the notification.
+      example: "Front door"
+      selector:
+        text: {}
+    icon:
+      name: Icon
+      description: Built-in icon name or installed custom icon id.
+      example: "sms"
+      selector:
+        text: {}
+    color:
+      name: Color
+      description: Text colour as #RRGGBB.
+      example: "#00aaff"
+      selector:
+        color_rgb: {}
+    duration:
+      name: Duration
+      description: Seconds to display (1-120).
+      example: 8
+      selector:
+        number:
+          min: 1
+          max: 120
+          mode: box
+    speed:
+      name: Scroll speed
+      description: Notification scroll speed.
+      example: medium
+      selector:
+        select:
+          mode: dropdown
+          options:
+            - slow
+            - medium
+            - fast
+    plays:
+      name: Plays
+      description: How many times the text should scroll (1-10).
+      example: 1
+      selector:
+        number:
+          min: 1
+          max: 10
+          mode: box
+    sound:
+      name: Sound
+      description: Play a notification sound when supported.
+      example: false
+      selector:
+        boolean: {}
+    pushIcon:
+      name: Push icon
+      description: Icon layout behavior for notification. 0 = pinned left, 1 = scroll with text (AWTRIX compatible).
+      example: "0"
+      selector:
+        select:
+          mode: dropdown
+          options:
+            - "0"
+            - "1"
+            - "2"
+    noScroll:
+      name: No scroll
+      description: Disable text scrolling for notification (AWTRIX compatible).
+      example: false
+      selector:
+        boolean: {}
+
+dismiss_notify:
+  name: Dismiss notification
+  description: Clear the current DeskDot notification overlay.
+  fields:
+    device:
+      name: DeskDot device
+      required: true
+      description: The DeskDot to clear.
+      selector:
+        device:
+          manufacturer: DeskDot
+          model: DeskDot Display
+
+card:
+  name: Upsert card
+  description: Create or update a card in the DeskDot local loop.
+  fields:
+    device:
+      name: DeskDot device
+      required: true
+      description: The DeskDot to update.
+      selector:
+        device:
+          manufacturer: DeskDot
+          model: DeskDot Display
+    card_id:
+      name: Card ID
+      required: true
+      description: Stable card id (lowercase letters, numbers, underscore, dash).
+      example: "ha_status"
+      selector:
+        text: {}
+    enabled:
+      name: Enabled
+      description: Enable or disable the card without removing it. Can be sent alone with card_id to toggle visibility.
+      example: true
+      selector:
+        boolean: {}
+    text:
+      name: Text
+      description: Card text (required for text and clock cards, not needed if only toggling enabled).
+      example: "22.4 C living room"
+      selector:
+        text: {}
+    type:
+      name: Card type
+      description: text, clock, or pixel.
+      example: text
+      selector:
+        select:
+          mode: dropdown
+          options:
+            - text
+            - clock
+            - pixel
+    icon:
+      name: Icon
+      description: Built-in icon name or custom icon id.
+      example: "sun"
+      selector:
+        text: {}
+    color:
+      name: Color
+      description: Text colour as #RRGGBB.
+      example: "#ffffff"
+      selector:
+        color_rgb: {}
+    duration:
+      name: Duration
+      description: Seconds to show this card in the loop (1-120).
+      example: 10
+      selector:
+        number:
+          min: 1
+          max: 120
+          mode: box
+    priority:
+      name: Priority
+      description: Card priority (0-100). Higher sorts earlier.
+      example: 50
+      selector:
+        number:
+          min: 0
+          max: 100
+          mode: box
+    clockVariant:
+      name: Clock variant
+      description: Layout when type is clock.
+      example: compact
+      selector:
+        select:
+          mode: dropdown
+          options:
+            - compact
+            - wide
+            - weekdays
+            - time_only
+            - time_weekdays
+    save:
+      name: Save to flash
+      description: Persist the card across reboots when supported.
+      example: false
+      selector:
+        boolean: {}
+    ttl:
+      name: TTL
+      description: Auto-expire after this many seconds (0 = never).
+      example: 0
+      selector:
+        number:
+          min: 0
+          mode: box
+    rainbow:
+      name: Rainbow text
+      description: Animate the text colour.
+      example: false
+      selector:
+        boolean: {}
+    pushIcon:
+      name: Push icon
+      description: Icon layout behavior. 0 = pinned left, 1 = scroll with text (AWTRIX compatible).
+      example: "0"
+      selector:
+        select:
+          mode: dropdown
+          options:
+            - "0"
+            - "1"
+            - "2"
+    noScroll:
+      name: No scroll
+      description: Disable text scrolling (AWTRIX compatible). When true, text will not scroll.
+      example: false
+      selector:
+        boolean: {}
+    speed:
+      name: Scroll speed (preset)
+      description: Scroll speed preset (slow, medium, fast, or raw ms/pixel).
+      example: medium
+      selector:
+        select:
+          mode: dropdown
+          options:
+            - slow
+            - medium
+            - fast
+    scrollMsPerPixel:
+      name: Scroll speed
+      description: Scrolling speed in milliseconds per pixel (15-250, default is 85-115 depending on content).
+      example: 85
+      selector:
+        number:
+          min: 15
+          max: 250
+          mode: box
+    scrollRepeats:
+      name: Scroll repeats
+      description: How many times the text should scroll (1-10, default is 1 or 2).
+      example: 1
+      selector:
+        number:
+          min: 1
+          max: 10
+          mode: box
+    pixelData:
+      name: Pixel data
+      description: 256 hex palette indexes for pixel cards (32x8).
+      selector:
+        text: {}
+    pixelPalette:
+      name: Pixel palette
+      description: Array of 1-15 #RRGGBB colours for pixel cards.
+      example: '["#000000", "#00aaff", "#ffffff"]'
+      selector:
+        object: {}
+
+delete_card:
+  name: Delete card
+  description: Remove a card from the DeskDot local loop.
+  fields:
+    device:
+      name: DeskDot device
+      required: true
+      description: The DeskDot to update.
+      selector:
+        device:
+          manufacturer: DeskDot
+          model: DeskDot Display
+    card_id:
+      name: Card ID
+      required: true
+      description: Card id to delete.
+      example: "ha_status"
+      selector:
+        text: {}
+
+settings:
+  name: Update settings
+  description: Change DeskDot display settings over MQTT.
+  fields:
+    device:
+      name: DeskDot device
+      required: true
+      description: The DeskDot to configure.
+      selector:
+        device:
+          manufacturer: DeskDot
+          model: DeskDot Display
+    brightness:
+      name: Brightness
+      description: Matrix brightness (0-255).
+      example: 128
+      selector:
+        number:
+          min: 0
+          max: 255
+          mode: slider
+    nightMode:
+      name: Night mode
+      description: Enable night mode dimming.
+      example: false
+      selector:
+        boolean: {}
+    clockEnabled:
+      name: Clock enabled
+      description: Include the native clock in the loop.
+      example: true
+      selector:
+        boolean: {}
+    clockVariant:
+      name: Clock variant
+      description: Native clock layout.
+      example: compact
+      selector:
+        select:
+          mode: dropdown
+          options:
+            - compact
+            - wide
+            - weekdays
+            - time_only
+            - time_weekdays
+    transitionStyle:
+      name: Transition style
+      description: Animation between cards.
+      example: slide_left
+      selector:
+        select:
+          mode: dropdown
+          options:
+            - random
+            - wipe_down
+            - wipe_up
+            - slide_left
+            - slide_right
+            - slide_up
+            - slide_down
+            - fade
+    pinnedCardId:
+      name: Pinned card ID
+      description: Keep the loop on this card id (clear with empty string in YAML advanced automations, or omit).
+      example: "ha_status"
+      selector:
+        text: {}
+    tz:
+      name: Timezone
+      description: POSIX TZ string (e.g. GMT0BST,M3.5.0/1,M10.5.0).
+      example: "GMT0BST,M3.5.0/1,M10.5.0"
+      selector:
+        text: {}
+    showIpOnConnect:
+      name: Show IP on connect
+      description: Show IP address scroller card once connected on boot.
+      example: false
+      selector:
+        boolean: {}
+
+control:
+  name: Control display
+  description: Send a queue or power command to the DeskDot.
+  fields:
+    device:
+      name: DeskDot device
+      required: true
+      description: The DeskDot to control.
+      selector:
+        device:
+          manufacturer: DeskDot
+          model: DeskDot Display
+    command:
+      name: Command
+      required: true
+      description: Control command.
+      example: next
+      selector:
+        select:
+          mode: dropdown
+          options:
+            - next
+            - prev
+            - pause
+            - resume
+            - sleep
+            - wake
+            - reboot

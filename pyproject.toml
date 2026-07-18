@@ -1,0 +1,15 @@
+[project]
+name = "deskdot"
+version = "0.1.2"
+description = "Home Assistant custom component to control DeskDot devices over Local MQTT"
+requires-python = ">=3.12"
+dependencies = [
+    "homeassistant>=2024.1.0",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["custom_components/deskdot"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
