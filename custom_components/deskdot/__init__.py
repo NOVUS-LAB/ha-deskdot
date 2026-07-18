@@ -51,7 +51,8 @@ _CONTROL_COMMANDS = frozenset(
 
 
 async def async_setup(hass: HomeAssistant, _: dict) -> bool:
-    """Register DeskDot MQTT services."""
+    """Register DeskDot MQTT services and frontend card."""
+    await _register_lovelace_card(hass)
 
     async def notify(call: ServiceCall) -> None:
         device = call.data.get("device")
@@ -120,7 +121,6 @@ PLATFORMS = ["sensor"]
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Initialise entry configuration."""
-    await _register_lovelace_card(hass)
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
     return True
 
