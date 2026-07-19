@@ -209,6 +209,17 @@ def _prepare_notify_payload(data: dict[str, Any]) -> str:
         if not isinstance(no_scroll, bool):
             raise HomeAssistantError("noScroll must be a boolean")
 
+    if "flash" in payload:
+        flash = payload["flash"]
+        if flash not in ("white", "blue", "red"):
+            raise HomeAssistantError("flash must be one of: white, blue, red")
+    if "flashes" in payload:
+        flashes = payload["flashes"]
+        if not isinstance(flashes, int) or flashes < 1 or flashes > 3:
+            raise HomeAssistantError("flashes must be an integer between 1 and 3")
+    if "pulse" in payload and not isinstance(payload["pulse"], bool):
+        raise HomeAssistantError("pulse must be a boolean")
+
     return json.dumps(payload)
 
 
