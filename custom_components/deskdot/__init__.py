@@ -254,8 +254,6 @@ def _prepare_card_payload(data: dict[str, Any], card_id: str) -> str:
         duration = payload["duration"]
         if not isinstance(duration, int) or duration < 1 or duration > 120:
             raise HomeAssistantError("duration must be an integer between 1 and 120")
-    else:
-        payload["duration"] = 10
 
     if "priority" in payload:
         priority = payload["priority"]
